@@ -4,10 +4,14 @@ import { ArrayMinSize, IsArray, IsNumber, IsPositive, IsString, ValidateNested }
 export class PaymentSessionDto{
     
     @IsString()
+    orderId: string;
+
+
+    @IsString()
     currency: string;
 
     @IsArray()
-    @ArrayMinSize(1)
+@ArrayMinSize(1)
     @ValidateNested({each:true})
     @Type( () => PaymentSessionItemDto)
     items:PaymentSessionItemDto[]
