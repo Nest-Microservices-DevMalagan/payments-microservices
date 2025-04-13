@@ -82,6 +82,16 @@ export class PaymentsService {
         this.client.emit('payment.succeeded', payload);
         break;
 
+      case 'checkout.session.expired':
+        const sesion = event.data.object as Stripe.Checkout.Session;
+
+        const cancelledPayload = {
+          orderId: sesion.metadata?.orderId,
+          reason: 'checkout_expired',
+        };
+
+        this.client.emit('payment.cancelled', cancelledPayload);
+        break;
       default:
         console.log(`Evento ${event.type} no crontolado`);
         break;
