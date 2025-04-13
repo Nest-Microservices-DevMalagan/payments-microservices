@@ -1,14 +1,14 @@
-FROM node:21-alpine3.19
+FROM oven/bun:latest
 
 WORKDIR /usr/src/app
 
-# Instala pnpm globalmente
-RUN npm install -g pnpm
+# Copiamos los archivos de dependencias
+COPY package.json ./
 
-COPY package.json pnpm-lock.yaml ./
+# Instalamos las dependencias con bun
+RUN bun install
 
-RUN pnpm install
-
+# Copiamos el resto de los archivos
 COPY . .
 
 EXPOSE 3003
