@@ -1,14 +1,15 @@
-FROM oven/bun:latest
+FROM node:21-alpine3.19
 
 WORKDIR /usr/src/app
 
-# Copiamos los archivos de dependencias
 COPY package.json ./
+COPY package-lock.json ./
 
-# Instalamos las dependencias con bun
-RUN bun install
 
-# Copiamos el resto de los archivos
+RUN npm install
+
 COPY . .
+
+# RUN npx prisma generate
 
 EXPOSE 3003
